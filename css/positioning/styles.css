@@ -1,0 +1,22 @@
+body{
+	text-align:center;
+}
+
+.octo{
+	margin-top:80px;
+	z-index:-1;
+}
+
+.hat{
+	position:relative;
+	z-index:1;
+	top:-350px;
+	left:5px;
+}
+
+.glasses{
+	position:relative;
+	z-index:2;
+	top:-365px;
+	left:5px;
+}
