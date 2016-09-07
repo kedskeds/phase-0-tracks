@@ -9,6 +9,14 @@
 	margin-top:20px;
 }
 
-.accomplishments{
+.accomplishments {
 	font-size:.8em;
+}
+
+section#volunteer-experience:last-of-type {
+    background-color:#2c6eff;
+}
+
+ul li.featured {
+    font-weight: bold;
 }
