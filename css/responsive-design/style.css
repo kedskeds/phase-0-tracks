@@ -1,3 +1,7 @@
+h1{
+  margin:0;
+}
+
 blockquote {
   border-left: 5px solid blue;
   padding: 15px;
@@ -46,6 +50,13 @@ figcaption {
   font-style: italic;
   text-align: right;
 }
-body{
- 
+
+@media screen and (max-width: 670px) {
+  #external-links ul li{
+    display:inline;
+  }
+  main{
+    min-width:400px;
+  }
+
 }
