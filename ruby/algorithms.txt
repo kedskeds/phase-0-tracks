@@ -1,0 +1,13 @@
+- compare current floor to desired floor
+	- if desired floor is a higher number:
+		- press the UP arrow
+	- else
+		- press the DOWN arrow
+- enter elevator when doors open
+	- if desired floor is equal to or greater than 13:
+		- determine if 13 is a valid floor number.
+			- if not: 
+				- add 1 to desired floor.
+	- press button for the number of the desired floor.
+- if elevator doors open && current floor == desired floor
+	- exit the elevator.
