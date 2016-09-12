@@ -23,7 +23,7 @@ Release 1: Grilled Cheese Sandwich
 		- remove bread/cheese from package.
 - is the bread/cheese pre-sliced?
 	- if not:
-		- use knife to slice .5 inch pieces x 2
+		- use knife to cut .5 inch wide slices x 2
 	- if yes:
 		- remove 2 slices of bread and several slices of cheese
 - is the stove on?
@@ -31,8 +31,8 @@ Release 1: Grilled Cheese Sandwich
 		- turn it on to medium heat.
 - place pan on stove with 1cm thick square of butter
 - assemble sandwich:
-	- place cheese between the two slices of bread
+	- lay cheese flat between the two slices of bread
 	- place sandwich onto pan
-- flip sandwich after 3 minutes
-- remove from heat after an additional 3 minutes
+- flip sandwich after 3 minutes, or until bottom piece of bread begins to brown
+- remove from heat until both sides are evenly browned
 - enjoy your grilled cheese sandwich! don't forget to turn off the stove.
