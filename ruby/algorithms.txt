@@ -1,0 +1,38 @@
+Release 0: Using an Elevator
+
+- compare current floor to desired floor
+	- if desired floor is a higher number:
+		- press the UP arrow
+	- else
+		- press the DOWN arrow
+- enter elevator when doors open
+	- if desired floor is equal to or greater than 13:
+		- determine if 13 is a valid floor number.
+			- if not: 
+				- add 1 to desired floor.
+	- press button for the number of the desired floor.
+- if elevator doors open && current floor == desired floor
+	- exit the elevator.
+
+
+Release 1: Grilled Cheese Sandwich
+
+- obtain a loaf of bread, block of cheese, pan, stove, butter, knife
+- is the bread or cheese contained within a package?
+	- if yes: 
+		- remove bread/cheese from package.
+- is the bread/cheese pre-sliced?
+	- if not:
+		- use knife to slice .5 inch pieces x 2
+	- if yes:
+		- remove 2 slices of bread and several slices of cheese
+- is the stove on?
+	- if not: 
+		- turn it on to medium heat.
+- place pan on stove with 1cm thick square of butter
+- assemble sandwich:
+	- place cheese between the two slices of bread
+	- place sandwich onto pan
+- flip sandwich after 3 minutes
+- remove from heat after an additional 3 minutes
+- enjoy your grilled cheese sandwich! don't forget to turn off the stove.
