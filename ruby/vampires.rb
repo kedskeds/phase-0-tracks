@@ -3,6 +3,7 @@ eats_garlic = true
 wants_ins = true
 result = "Results inconclusive."
 valid_name = true
+likes_sunshine = true
 
 puts "How many employees will be processed?"
 num_employees = gets.chomp 
@@ -40,6 +41,17 @@ until i > num_employees.to_i
 		wants_ins = false
 	end
 
+	allergies = ""
+
+	until allergies == "done"
+		puts "what are you allergic to? Type 'done' when finished."
+		allergies = gets.chomp
+		if allergies == "sunshine"
+			likes_sunshine = false
+			break
+		end
+	end
+
 	if valid_age && (eats_garlic || wants_ins)
 		result = "Probably not a vampire."
 	elsif !valid_age && (!eats_garlic || !wants_ins)
@@ -50,6 +62,9 @@ until i > num_employees.to_i
 	end
 	if !valid_name
 		result = "Definitely a vampire."
+	end
+	if likes_sunshine == false
+		result = "Probably a vampire"
 	end
 
 	puts "-----------------------------------"
