@@ -11,7 +11,7 @@ num_employees = gets.chomp
 i = 1
 
 until i > num_employees.to_i
-	
+
 	puts "What is your name?"
 	name = gets.chomp
 	name = name.downcase
@@ -43,8 +43,9 @@ until i > num_employees.to_i
 
 	allergies = ""
 
+	puts "what are you allergic to? Type 'done' when finished."
 	until allergies == "done"
-		puts "what are you allergic to? Type 'done' when finished."
+		
 		allergies = gets.chomp
 		if allergies == "sunshine"
 			likes_sunshine = false
@@ -54,7 +55,8 @@ until i > num_employees.to_i
 
 	if valid_age && (eats_garlic || wants_ins)
 		result = "Probably not a vampire."
-	elsif !valid_age && (!eats_garlic || !wants_ins)
+	end
+	if (!valid_age && (!eats_garlic || !wants_ins)) || (likes_sunshine == false)
 		result = "Probably a vampire."
 	end
 	if !valid_age && !eats_garlic && !wants_ins
@@ -63,9 +65,6 @@ until i > num_employees.to_i
 	if !valid_name
 		result = "Definitely a vampire."
 	end
-	if likes_sunshine == false
-		result = "Probably a vampire"
-	end
 
 	puts "-----------------------------------"
 	puts "Employee #{i}: #{result}"
@@ -73,3 +72,5 @@ until i > num_employees.to_i
 
 	i += 1
 end
+
+puts "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
