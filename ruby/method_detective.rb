@@ -1,4 +1,4 @@
-# Replace in the "<???>" with the appropriate method (and arguments, if any).
+## Replace in the "<???>" with the appropriate method (and arguments, if any).
 # Uncomment the calls to catch these methods red-handed.
 
 # When there's more than one suspect who could have
