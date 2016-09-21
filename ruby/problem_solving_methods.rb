@@ -38,10 +38,19 @@ p fib(100)[-1] == 218922995834555169026
 
 # Release 2 research on sorting algorithm 
 
-# Ｂｕｂｂｌｅ　ｓｏｒｔ：　ｄｅｆｉｎｅ　ａ　ｍｅｔｈｏｄ，　ｔａｋｅｓ　ｉｎ　ａｎ　ａｒｒａｙ　ａｓ　ａ　ｐａｒａｍｅｔｅｒ　
-# ｌｏｏｐ　ｔｈｒｏｕｇｈ　ｔｈｅ　ａｒｒａｙ，　ｃｏｍｐａｒｅ　ｅａｃｈ　ｔｗｏ　ｉｔｅｍｓ　ｔｈａｔ　ｉｓ　ｎｅｘｔ　ｔｏ　ｅａｃｈ　ｏｔｈｅｒ，　ｉｆ　ｔｈｅ　ｆｉｒｓｔ　ｉｔｅｍ　ｉｓ　ｌａｒｇｅｒ
-# ｔｈｅｎ　ｔｈｅ　ｓｅｃｏｎｄ　ｏｎｅ，　ｓｗｉｔｃｈ　ｔｈｅｉｒ　ｐｏｓｉｔｉｏｎｓ，　ｕｎｔｉｌ　ｅａｃｈ　ｐａｉｒ　ｏｆ　ｉｔｅｍｓ　ｉｓ　ｄｏｎｅ　ｃｏｍｐａｒｉｎｇ．　
-# ｒｅｔｕｒｎ　ｔｈｅ　ｓｏｒｔｅｄ　ａｒｒａｙ．　
+=begin
+
+BUBBLE SORT 
+
+-bubble_sort takes an array as a parameter
+-loop through the array
+	-if the first item is larger than the second,
+			-swap the order of the elements in the array
+-continue looping until the array is sorted.
+
+	
+=end
+
 
 def bubble_sort(arr)
 	n = arr.length 
