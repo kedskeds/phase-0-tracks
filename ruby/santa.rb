@@ -3,8 +3,8 @@ class Santa
 		puts "Initializing Santa instance..."
 		@gender = gender
 		@ethnicity = ethnicity
-		reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
-		age = 0
+		@reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
+		@age = 0
 	end 
 	def about
 		puts "Gender: #{@gender}"
@@ -15,6 +15,26 @@ class Santa
 	end 
 	def eat_milk_and_cookies(cookie)
 		puts "That was a good #{cookie}!"
+	end 
+
+	#setter methods
+	def celebrate_birthday
+		@age += 1 
+	end 
+	def get_mad_at(reindeer)
+		@reindeer_ranking.delete(reindeer)
+		@reindeer_ranking << reindeer
+		puts "#{reindeer} is now ranked last."
+	end
+	def gender=(new_gender)
+		@gender = new_gender
+	end
+	#getter methods
+	def age 
+		@age
+	end
+	def ethnicity
+		@ethnicity
 	end 
 end
 
@@ -36,4 +56,13 @@ while i < 6
 	i += 1
 end
 
-p santa_arr
+
+#test getter and setter methods
+puts "Bob's current age is #{bob.age.to_s}"
+bob.celebrate_birthday
+puts "Bob just celebrated his birthday. He is now #{bob.age.to_s}"
+bob.get_mad_at("Dasher")
+bob.gender = "none"
+puts "Bob's current info:"
+puts bob.about 
+
