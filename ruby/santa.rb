@@ -1,6 +1,6 @@
 class Santa
-	attr_reader :ethnicity, :age
-	attr_accessor :gender
+	attr_reader :ethnicity
+	attr_accessor :gender, :age
 	def initialize(gender, ethnicity)
 		puts "Initializing Santa instance..."
 		@gender = gender
@@ -67,3 +67,13 @@ puts "Bob's current info:"
 puts "Gender: #{bob.gender}" 
 puts "Ethnicity: #{bob.ethnicity}"
 
+#create a bunch of new santas
+i = 0 
+while i < 10 
+	new_santa = Santa.new(genders.sample, ethnicities.sample)
+	random_age = Random.new 
+
+	new_santa.age = random_age.rand(0..140)
+	puts "This Santa is #{new_santa.gender}, #{new_santa.age} years old, and #{new_santa.ethnicity}."
+	i += 1
+end
