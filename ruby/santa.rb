@@ -1,21 +1,42 @@
 class Santa
+	attr_reader :ethnicity
+	attr_accessor :gender, :age
 	def initialize(gender, ethnicity)
 		puts "Initializing Santa instance..."
 		@gender = gender
 		@ethnicity = ethnicity
-		reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
-		age = 0
+		@reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
+		@age = 0
 	end 
-	def about
-		puts "Gender: #{@gender}"
-		puts "Ethnicity: #{@ethnicity}"
-	end
 	def speak
 		puts "Ho, ho, ho! Haaaappy holidays!"
 	end 
 	def eat_milk_and_cookies(cookie)
 		puts "That was a good #{cookie}!"
 	end 
+
+	
+	def celebrate_birthday
+		@age += 1 
+	end 
+	def get_mad_at(reindeer)
+		@reindeer_ranking.delete(reindeer)
+		@reindeer_ranking << reindeer
+		puts "#{reindeer} is now ranked last."
+	end
+
+	#setter methods
+	#def gender=(new_gender)
+	#	@gender = new_gender
+	#end
+
+	#getter methods
+	#def age 
+	#	@age
+	#end
+	#def ethnicity
+	#	@ethnicity
+	#end 
 end
 
 #initialize new Santa
@@ -24,7 +45,6 @@ bob = Santa.new("gender fluid", "hispanic")
 #test Santa methods
 bob.speak 
 bob.eat_milk_and_cookies("chocolate chip cookie")
-bob.about 
 
 genders = ["none", "other", "fluid", "male", "female", "N/A"]
 ethnicities = ["latino", "indian", "asian", "white", "black", "N/A"]
@@ -36,4 +56,24 @@ while i < 6
 	i += 1
 end
 
-p santa_arr
+
+#test getter and setter methods
+puts "Bob's current age is #{bob.age.to_s}"
+bob.celebrate_birthday
+puts "Bob just celebrated a birthday. They are now #{bob.age.to_s}"
+bob.get_mad_at("Dasher")
+bob.gender = "unicorn"
+puts "Bob's current info:"
+puts "Gender: #{bob.gender}" 
+puts "Ethnicity: #{bob.ethnicity}"
+
+#create a bunch of new santas
+i = 0 
+while i < 10 
+	new_santa = Santa.new(genders.sample, ethnicities.sample)
+	random_age = Random.new 
+
+	new_santa.age = random_age.rand(0..140)
+	puts "This Santa is #{new_santa.gender}, #{new_santa.age} years old, and #{new_santa.ethnicity}."
+	i += 1
+end
