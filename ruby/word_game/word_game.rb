@@ -41,6 +41,8 @@ class WordGame
 	def repeat?(guess, guesses_made)
 		if @guesses_made.join('').index(guess)
 			true 
+		else 
+			false 
 		end
 	end
 
@@ -56,7 +58,15 @@ class WordGame
 		if @secret_word.index(guess)
 			@current_display[@secret_word.index(guess)] = guess 
 		end
-		p @current_display
+		@current_display
+	end
+
+	def guess_limit_reached?
+		if @guesses_made.length >= @guess_limit
+			true 
+		else 
+			false
+		end
 	end
 end
 
