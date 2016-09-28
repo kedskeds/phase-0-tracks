@@ -24,13 +24,16 @@ WORD GUESSING GAME
 =end
 
 class WordGame
-	attr_reader :secret_word
+	attr_reader :secret_word, :current_display, :guess_limit
 	attr_accessor :guesses_made
 	def initialize(secret_word)
 		@secret_word = secret_word
 		@guesses_made = []
-		@guess_limit = @secret_word.length * 2
-		@game_over = false
+		@guess_limit = @secret_word.length * 1.5
+
+		@game_lose = false
+		@game_win = false
+
 		@current_display = []
 
 		@secret_word.split('').each do |letter|
@@ -46,15 +49,15 @@ class WordGame
 		end
 	end
 
-	def make_guess(guess, guesses_made)
+	def make_guess(guess)
 		if !repeat?(guess, guesses_made)
-			display(guess)
+			change_display(guess)
 			@guesses_made << guess
 		end
 		@guesses_made
 	end
 
-	def display(guess)
+	def change_display(guess)
 		if @secret_word.index(guess)
 			@current_display[@secret_word.index(guess)] = guess 
 		end
@@ -68,14 +71,18 @@ class WordGame
 			false
 		end
 	end
+
+	def word_found?
+		if @current_display.join('') == @secret_word
+			true
+		else
+			false
+		end
+	end
 end
 
 # driver code 
 
 example_game = WordGame.new("secretword")
 
-example_game.make_guess("e",example_game.guesses_made)
-example_game.make_guess("f",example_game.guesses_made)
-example_game.make_guess("w",example_game.guesses_made)
-p example_game.guesses_made
 
