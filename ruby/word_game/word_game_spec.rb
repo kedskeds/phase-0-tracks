@@ -14,4 +14,7 @@ describe WordGame do
 		game.make_guess("a",["r"])
 		expect(game.display("r")).to eq (["_","_","r","_"])
 	end
+	it "checks if too many guesses have been made" do 
+		expect(game.guess_limit_reached?).to eq false
+	end
 end

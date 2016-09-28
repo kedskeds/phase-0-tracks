@@ -29,6 +29,8 @@ class WordGame
 	def initialize(secret_word)
 		@secret_word = secret_word
 		@guesses_made = []
+		@guess_limit = @secret_word.length * 2
+		@game_over = false
 		@current_display = []
 
 		@secret_word.split('').each do |letter|
@@ -54,7 +56,7 @@ class WordGame
 		if @secret_word.index(guess)
 			@current_display[@secret_word.index(guess)] = guess 
 		end
-		@current_display
+		p @current_display
 	end
 end
 
@@ -62,8 +64,8 @@ end
 
 example_game = WordGame.new("secretword")
 
-p example_game.guesses_made
 example_game.make_guess("e",example_game.guesses_made)
 example_game.make_guess("f",example_game.guesses_made)
+example_game.make_guess("w",example_game.guesses_made)
 p example_game.guesses_made
-p example_game.repeat?("f",example_game.guesses_made)
+
