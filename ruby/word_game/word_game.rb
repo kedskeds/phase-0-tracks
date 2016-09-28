@@ -39,19 +39,22 @@ class WordGame
 	def repeat?(guess, guesses_made)
 		if @guesses_made.join('').index(guess)
 			true 
-		else
-			false
 		end
 	end
 
 	def make_guess(guess, guesses_made)
 		if !repeat?(guess, guesses_made)
+			display(guess)
 			@guesses_made << guess
 		end
 		@guesses_made
 	end
 
-	def display
+	def display(guess)
+		if @secret_word.index(guess)
+			@current_display[@secret_word.index(guess)] = guess 
+		end
+		@current_display
 	end
 end
 

@@ -12,6 +12,6 @@ describe WordGame do
 	it "displays the current game state" do 
 		game.make_guess("r",[])
 		game.make_guess("a",["r"])
-		expect(game.display).to eq (["_","_","r","_"])
+		expect(game.display("r")).to eq (["_","_","r","_"])
 	end
 end
