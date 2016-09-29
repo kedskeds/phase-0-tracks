@@ -30,15 +30,13 @@ class WordGame
 		@secret_word = secret_word
 		@guesses_made = []
 		@guess_limit = @secret_word.length * 1.5
+		@indexes = [] 
 
 		@game_lose = false
 		@game_win = false
 
-		@current_display = []
+		@current_display = @secret_word.gsub(/./,"_").split('')
 
-		@secret_word.split('').each do |letter|
-			@current_display << "_"
-		end
 	end
 
 	def repeat?(guess, guesses_made)
@@ -57,9 +55,25 @@ class WordGame
 		@guesses_made
 	end
 
+	def find_index(guess)
+		counter = 0
+		@indexes = []
+		@secret_word.split('').each do |letter|
+			if letter == guess 
+				@indexes << counter 
+			end
+			counter += 1
+		end
+		@indexes
+	end
+
 	def change_display(guess)
 		if @secret_word.index(guess)
-			@current_display[@secret_word.index(guess)] = guess 
+
+			find_index(guess).each do |index|
+				@current_display[index] = guess
+			end
+
 		end
 		@current_display
 	end
