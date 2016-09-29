@@ -27,7 +27,7 @@ class WordGame
 	attr_reader :secret_word, :current_display, :guess_limit
 	attr_accessor :guesses_made
 	def initialize(secret_word)
-		@secret_word = secret_word
+		@secret_word = secret_word.downcase
 		@guesses_made = []
 		@guess_limit = @secret_word.length * 1.5
 		@indexes = [] 
@@ -96,7 +96,7 @@ class WordGame
 end
 
 # driver code 
-
+=begin
 puts "Player 1: please enter a secret word."
 secret_word = gets.chomp 
 new_game = WordGame.new(secret_word)
@@ -108,7 +108,7 @@ p new_game.current_display
 puts "Please enter a guess:"
 until new_game.word_found? || new_game.guess_limit_reached?
 	
-	guess = gets.chomp 
+	guess = gets.chomp.downcase 
 	new_game.make_guess(guess)
 
 	p new_game.current_display
@@ -116,7 +116,8 @@ until new_game.word_found? || new_game.guess_limit_reached?
 end 
 
 if new_game.word_found?
-	puts "Congratulations!"
+	puts "Congratulations! You won in #{new_game.guesses_made.length} guesses."
 else 
-	puts "YOU LOSE"
+	puts "YOU LOSE! The secret word was #{new_game.secret_word}."
 end
+=end
