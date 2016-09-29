@@ -1,4 +1,5 @@
 require_relative 'word_game'
+## Please see word_game.rb file for Class definition.
 
 puts "Player 1: please enter a secret word."
 secret_word = gets.chomp 
@@ -6,7 +7,7 @@ new_game = WordGame.new(secret_word)
 
 puts "Player 2: You have #{new_game.guess_limit.to_i} guesses."
 
-p new_game.current_display
+print new_game.current_display
 
 puts "Please enter a guess:"
 until new_game.word_found? || new_game.guess_limit_reached?

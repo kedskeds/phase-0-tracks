@@ -5,9 +5,11 @@ describe WordGame do
 	it "checks for a repeated guess" do 
 		guesses_made = game.make_guess("a")
 		expect(game.repeat?("b", guesses_made)).to eq false
+		expect(game.repeat?("a", guesses_made)).to eq true
 	end
 	it "adds a guess to the list of guesses made" do 
 		expect(game.make_guess("z")).to eq ["z"]
+		expect(game.make_guess("a")).to eq ["z","a"]
 	end
 	it "displays the current game state" do 
 		game.make_guess("r")

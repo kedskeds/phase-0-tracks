@@ -48,7 +48,7 @@ class WordGame
 	end
 
 	def make_guess(guess)
-		if !repeat?(guess, guesses_made)
+		if !repeat?(guess, guesses_made) && guess.length == 1
 			change_display(guess)
 			@guesses_made << guess
 		end
@@ -95,29 +95,6 @@ class WordGame
 	end
 end
 
-# driver code 
-=begin
-puts "Player 1: please enter a secret word."
-secret_word = gets.chomp 
-new_game = WordGame.new(secret_word)
 
-puts "Player 2: You have #{new_game.guess_limit.to_i} guesses."
-
-p new_game.current_display
-
-puts "Please enter a guess:"
-until new_game.word_found? || new_game.guess_limit_reached?
-	
-	guess = gets.chomp.downcase 
-	new_game.make_guess(guess)
-
-	p new_game.current_display
-
-end 
-
-if new_game.word_found?
-	puts "Congratulations! You won in #{new_game.guesses_made.length} guesses."
-else 
-	puts "YOU LOSE! The secret word was #{new_game.secret_word}."
-end
-=end
+### Note:
+### All driver code is located in word_game_instance.rb.
