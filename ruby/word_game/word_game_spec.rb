@@ -25,6 +25,7 @@ describe WordGame do
 		expect(game.word_found?).to eq true
 	end
 	it "finds all occurences of a guess within the secret word" do 
-		expect(game.find_index("l")).to eq [2,3]
+		new_game = WordGame.new("hello")
+		expect(new_game.find_index("l")).to eq [2,3]
 	end
 end

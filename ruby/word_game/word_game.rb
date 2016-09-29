@@ -97,6 +97,26 @@ end
 
 # driver code 
 
-example_game = WordGame.new("secretword")
+puts "Player 1: please enter a secret word."
+secret_word = gets.chomp 
+new_game = WordGame.new(secret_word)
 
+puts "Player 2: You have #{new_game.guess_limit.to_i} guesses."
 
+p new_game.current_display
+
+puts "Please enter a guess:"
+until new_game.word_found? || new_game.guess_limit_reached?
+	
+	guess = gets.chomp 
+	new_game.make_guess(guess)
+
+	p new_game.current_display
+
+end 
+
+if new_game.word_found?
+	puts "Congratulations!"
+else 
+	puts "YOU LOSE"
+end
