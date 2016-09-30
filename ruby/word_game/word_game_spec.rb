@@ -22,6 +22,7 @@ describe WordGame do
 	it "checks if the secret word has been revealed" do 
 		game.make_guess("w")
 		game.make_guess("o")
+		expect(game.word_found?).to eq false
 		game.make_guess("r")
 		game.make_guess("d")
 		expect(game.word_found?).to eq true
