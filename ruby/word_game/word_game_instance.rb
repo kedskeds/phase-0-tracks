@@ -7,7 +7,7 @@ new_game = WordGame.new(secret_word)
 
 puts "Player 2: You have #{new_game.guess_limit.to_i} guesses."
 
-print new_game.current_display
+p new_game.current_display
 
 puts "Please enter a guess:"
 until new_game.word_found? || new_game.guess_limit_reached?
@@ -18,6 +18,7 @@ until new_game.word_found? || new_game.guess_limit_reached?
 	p new_game.current_display
 
 end 
+
 
 if new_game.word_found?
 	puts "Congratulations! You won in #{new_game.guesses_made.length} guesses."
