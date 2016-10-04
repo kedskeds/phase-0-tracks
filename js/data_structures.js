@@ -23,11 +23,11 @@ function Car(color, make, model){
 	this.model = model;
 	this.isDriving = false;
 	this.drive = function(speed) {
-		console.log ("car is now driving at " + speed.);
+		console.log ("The " + this.make + " is now driving at " + speed.toString() + " mph.");
 		this.isDriving = true;
 	};
 	this.brake = function() {
-		console.log("Car has stopped driving");
+		console.log("The " + this.make + " has stopped driving");
 		this.isDriving = false;
 	};
 
@@ -36,12 +36,12 @@ function Car(color, make, model){
 //initializing instances of Car
 var newCar = new Car("blue","BMW", "X5");
 console.log(newCar.isDriving);
-newCar.drive();
+newCar.drive(50);
 console.log(newCar.isDriving);
 
 var newCar2 = new Car("red","Audi", "S4");
 console.log(newCar2);
-newCar2.drive();
+newCar2.drive(10);
 newCar2.brake();
 
 /*
