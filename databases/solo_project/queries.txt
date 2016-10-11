@@ -28,3 +28,15 @@ sqlite> SELECT * FROM products;
 3|Say It Ain't Cilantro Burger|2|11|1
 4|Casket|8|1000|3
 5|Pesto's Besto Burger|6|10|2
+
+sqlite> SELECT products.name, suppliers.name, products.quantity FROM products INNER JOIN suppliers ON products.supplier_id = suppliers.id;
+Beets me Burger|Bob's Burgers|5
+Say It Ain't Cilantro Burger|Bob's Burgers|2
+Casket|It's Your Funeral Home & Crematorium|8
+Pesto's Besto Burger|Jimmy Pesto's|6
+
+sqlite> SELECT suppliers.name, products.name FROM suppliers LEFT JOIN products ON suppliers.id = products.supplier_id ORDER BY suppliers.name;
+Bob's Burgers|Beets me Burger
+Bob's Burgers|Say It Ain't Cilantro Burger
+It's Your Funeral Home & Crematorium|Casket
+Jimmy Pesto's|Pesto's Besto Burger
