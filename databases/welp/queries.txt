@@ -1,0 +1,15 @@
+SELECT * FROM reviews JOIN users ON users.id = reviews.user_id JOIN businesses ON businesses.id = reviews.business_id;
+
+1|5|it was good|1|1|1|Bradford|Pitt|1|Grundy Hollow Wedding Chapel
+2|2|i had a bad time here|2|2|2|Mandy|Kaling|2|Amir's Towing
+3|3|Meh|3|3|3|Angela|Jolie|3|The Beagle Nightclub
+
+SELECT reviews.stars, reviews.comment, businesses.name, users.fname, users.lname FROM reviews JOIN users ON reviews.user_id = users.id JOIN businesses ON reviews.business_id = businesses.id;
+
+5|it was good|Grundy Hollow Wedding Chapel|Bradford|Pitt
+2|i had a bad time here|Amir's Towing|Mandy|Kaling
+3|Meh|The Beagle Nightclub|Angela|Jolie
+
+SELECT * FROM reviews JOIN users ON reviews.user_id = users.id JOIN businesses ON reviews.business_id = businesses.id WHERE businesses.id = 1;  
+
+1|5|it was good|1|1|1|Bradford|Pitt|1|Grundy Hollow Wedding Chapel
