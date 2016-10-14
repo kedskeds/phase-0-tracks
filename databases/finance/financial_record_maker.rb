@@ -50,7 +50,7 @@ end
 bank_names = ["Bank of America","Wells Fargo","Citigroup", "JP Morgan"]
 account = Random.new 
 
-categories = ["rent","entertainment","groceries","restaurants","bars","travel"]
+categories = ["rent","entertainment","groceries","restaurants","bars","travel","misc"]
 amount = Random.new
 id = Random.new
 
@@ -58,6 +58,11 @@ id = Random.new
 db.execute(create_users_table)
 db.execute(create_accounts_table)
 db.execute(create_transactions_table)
+
+
+### Uncomment the code below to initialize a new
+### database containing randomized names, bank
+### account numbers, and transactions.
 
 =begin
 user_names = []
@@ -85,41 +90,135 @@ show_users = db.execute("SELECT * FROM users")
 show_transactions = db.execute("SELECT * FROM transactions")
 show_accounts = db.execute("SELECT * FROM accounts")
 
-join_users_accounts = "SELECT users.name,accounts.bank_name,accounts.account_num FROM accounts JOIN users ON accounts.user_id = users.id"
 
-users_and_accounts = db.execute(join_users_accounts)
-
-
-
-def print_user_summary(db,user_accounts,user_id)
-	user_info = db.execute("SELECT users.name,accounts.bank_name,accounts.account_num,transactions.amount FROM transactions JOIN accounts ON transactions.account_id = accounts.id JOIN users ON users.id = transactions.user_id WHERE users.id = '#{user_id}'")
-
-	puts "#{user_info[0][0].upcase}:"
-	user_info.each do |account|
-		puts "#{account[1]} a/c ending -#{account[2]}"
-		puts "-----------"
-	end
+def convert(num)
+	dollars = num/100.00
 end
 
-print_user_summary(db,users_and_accounts,9)
-
 def print_account_info(db,user_id,account_id)
-	show_all_tables = "SELECT * FROM transactions JOIN accounts ON accounts.id = transactions.account_id JOIN users ON users.id = transactions.user_id"
-	show_specific_rows = " WHERE users.id= #{user_id} AND accounts.id = #{account_id}"
+	table = "SELECT * FROM transactions JOIN accounts ON accounts.id = transactions.account_id JOIN users ON users.id = transactions.user_id"
+	show_user_activity = "WHERE users.id= #{user_id} AND accounts.id = #{account_id}"
+	order = "ORDER BY transactions.date"
+	
+	account_info= db.execute("#{table} #{show_user_activity} #{order}")
 
-	account_info= db.execute(show_all_tables+ show_specific_rows)
+	puts "#{account_info[0]['name'].upcase}"
 
-	ending_bal = 0
-	puts "Beginning Balance: $0"
+	puts "#{account_info[0]['bank_name']} -***#{account_info[0]['account_num']}"
+	puts "-----------------------"
+	beg_bal = convert(account_info[0]['beg_bal'])
+	ending_bal = beg_bal
+	puts "Beginning Balance: $#{beg_bal}"
 	account_info.each do |transaction|
-		ending_bal += transaction['amount']
-		puts "#{transaction['date']} $#{transaction['amount']}"
+		ending_bal += convert(transaction['amount'])
+		print "#{transaction['date']} #{transaction['category']} "
+		puts "$#{convert(transaction['amount'])}"
 	end
 	puts "-----------------------"
 	puts "Ending Balance: $#{ending_bal}"
+	puts "-----------------------"
 end
 
+def prompt_user(db, hash, table_name)
+	query = []
+	hash.each do |question, input_type|
+		puts "Enter #{question}:"
+		answer = gets.chomp
+		if input_type.is_a?(Numeric)
+			answer = answer.to_i
+		end
+		query << answer	
+	end
+	if table_name == "transactions"
+		create_transactions(db, query[0],query[1],query[2],query[3],query[4])
+	elsif table_name == "users"
+		create_user(db, query[0])
+	elsif table_name == "accounts"
+		create_accounts(db,query[0],query[1],query[2],query[3],query[4])
+	end
+end
 
-print_account_info(db,9,3)
+user_hash = {
+	"first and last name" => "string"
+}
+
+account_hash = {
+	"bank name" => "string",
+	"account number" => 0,
+	"beginning balance" => 0,
+	"user ID" => 0
+}
+
+transaction_hash = {
+	"date" => "string",
+	"category" => "string",
+	"amount" => 0,
+	"user ID" => 0,
+	"account ID" => 0
+}
+
+print_report = {
+	"user ID" => 0,
+	"account ID" => 0
+}
+
+puts "Loading financial database....."
+puts ""
+puts "Please type 'exit' to terminate the program."
+puts ""
+
+def show_menu
+	puts "MAIN MENU:"
+	puts "1. Add transaction"
+	puts "2. Add user"
+	puts "3. Add account"
+	puts "4. Print Report"
+end
+
+show_menu
+
+user_input = ""
+
+
+until user_input == "EXIT"
+	user_input = gets.chomp.upcase
+	if user_input == '1'
+		prompt_user(db, transaction_hash,"transactions")
+		puts "TRANSACTIONS UPDATED."
+	elsif user_input == '2'
+		prompt_user(db, user_hash,"users")
+		puts "USER CREATED."
+	elsif user_input == '3'
+		prompt_user(db, account_hash,"accounts")
+		puts "ACCOUNT ADDED."
+	elsif user_input == '4'
+		puts "Enter a user ID:"
+		user_id = gets.chomp
+		accounts = db.execute("SELECT accounts.id FROM accounts WHERE accounts.user_id = #{user_id}")
+		if accounts == []
+			puts "No accounts exist for this user."
+		else
+			puts "Choose from the list of accounts:"
+			acc = []
+			accounts.each do |account|
+				puts account[0]
+				acc << account[0]
+			end
+			
+			account_id = gets.chomp.to_i
+			if acc.include?(account_id)
+				print_account_info(db,user_id,account_id)
+			else
+				puts "Invalid account number."
+			end
+		end
+
+	elsif user_input != "EXIT"
+		puts "I didn't understand you."
+	end
+	break if user_input == 'EXIT'
+	show_menu
+end
+
 
 
