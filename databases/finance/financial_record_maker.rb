@@ -12,7 +12,6 @@ require 'faker'
 # Eventually, I would like to implement these features:
 # => display user account summary by month
 # => compare actual spending to budget
-# => randomize dates upon database initialization
 
 db = SQLite3::Database.new("financial_database.db")
 db.results_as_hash = true
@@ -61,11 +60,8 @@ def create_transactions(db,date,category,amount,user,account)
 end
 
 bank_names = ["Bank of America","Wells Fargo","Citigroup", "JP Morgan"]
-account = Random.new 
-
 categories = ["rent","entertainment","groceries","restaurants","bars","travel","misc"]
 amount = Random.new
-id = Random.new
 
 
 db.execute(create_users_table)
@@ -78,6 +74,15 @@ db.execute(create_transactions_table)
 ### account numbers, and transactions.
 
 =begin
+def random_date
+	r = Random.new 
+	year = "2016"
+	month = r.rand(1..12).to_s 
+	day = r.rand(1..28).to_s 
+
+	return "#{year}-#{month}-#{day}"
+end
+
 user_names = []
 account_nums = []
 user_ids = []
@@ -95,7 +100,7 @@ end
 10.times do |i|
 	create_user(db, user_names[i])
 	create_accounts(db,bank_names.sample,account_nums[i],beg_bals[i],user_ids[i])
-	create_transactions(db,"2016-10-10",categories.sample,amount.rand(-10000..10000),user_ids[i],account_ids[i])
+	create_transactions(db,random_date,categories.sample,amount.rand(-10000..10000),user_ids[i],account_ids[i])
 end
 =end
 
