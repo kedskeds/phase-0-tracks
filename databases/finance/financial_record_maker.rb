@@ -1,6 +1,19 @@
 require 'sqlite3'
 require 'faker'
 
+# This program stores USERS and their BANK ACCOUNT
+# information, as well as TRANSACTIONS they make
+# from those accounts. 
+
+# My goal was to create something similar to Mint,
+# a personal finance service, where users can categorize
+# their spending, track net worth, budget, etc.
+
+# Eventually, I would like to implement these features:
+# => display user account summary by month
+# => compare actual spending to budget
+# => randomize dates upon database initialization
+
 db = SQLite3::Database.new("financial_database.db")
 db.results_as_hash = true
 
@@ -69,22 +82,22 @@ user_names = []
 account_nums = []
 user_ids = []
 account_ids = []
+beg_bals = []
 
 10.times do |i|
 	user_names << Faker::Name.name
-	account_nums << account.rand(1000..9999)
-	#user_ids << (i+1)
-	user_ids << id.rand(1..10)
+	account_nums << amount.rand(1000..9999)
+	user_ids << amount.rand(1..10)
 	account_ids << (i+1)
+	beg_bals << amount.rand(0..10000)
 end
 
 10.times do |i|
 	create_user(db, user_names[i])
-	create_accounts(db,bank_names.sample,account_nums[i],0,user_ids[i])
-	create_transactions(db,"2016-10-12",categories.sample,amount.rand(-10000..10000),user_ids[i],account_ids[i])
+	create_accounts(db,bank_names.sample,account_nums[i],beg_bals[i],user_ids[i])
+	create_transactions(db,"2016-10-10",categories.sample,amount.rand(-10000..10000),user_ids[i],account_ids[i])
 end
 =end
-
 
 show_users = db.execute("SELECT * FROM users")
 show_transactions = db.execute("SELECT * FROM transactions")
@@ -103,11 +116,13 @@ def print_account_info(db,user_id,account_id)
 	account_info= db.execute("#{table} #{show_user_activity} #{order}")
 
 	puts "#{account_info[0]['name'].upcase}"
-
-	puts "#{account_info[0]['bank_name']} -***#{account_info[0]['account_num']}"
+	print "#{account_info[0]['bank_name']} -***#{account_info[0]['account_num']}"
+	puts " Database ID# #{account_id}"
 	puts "-----------------------"
+
 	beg_bal = convert(account_info[0]['beg_bal'])
 	ending_bal = beg_bal
+
 	puts "Beginning Balance: $#{beg_bal}"
 	account_info.each do |transaction|
 		ending_bal += convert(transaction['amount'])
@@ -115,8 +130,10 @@ def print_account_info(db,user_id,account_id)
 		puts "$#{convert(transaction['amount'])}"
 	end
 	puts "-----------------------"
+	ending_bal = (ending_bal*100).round/100.00
 	puts "Ending Balance: $#{ending_bal}"
 	puts "-----------------------"
+	puts ""
 end
 
 def prompt_user(db, hash, table_name)
@@ -134,10 +151,12 @@ def prompt_user(db, hash, table_name)
 	elsif table_name == "users"
 		create_user(db, query[0])
 	elsif table_name == "accounts"
-		create_accounts(db,query[0],query[1],query[2],query[3],query[4])
+		create_accounts(db,query[0],query[1],query[2],query[3])
 	end
 end
 
+# The structures below store questions as KEYS
+# and the desired type of user input as VALUES.
 user_hash = {
 	"first and last name" => "string"
 }
@@ -150,14 +169,9 @@ account_hash = {
 }
 
 transaction_hash = {
-	"date" => "string",
+	"date (YYYY-MM-DD)" => "string",
 	"category" => "string",
 	"amount" => 0,
-	"user ID" => 0,
-	"account ID" => 0
-}
-
-print_report = {
 	"user ID" => 0,
 	"account ID" => 0
 }
@@ -179,7 +193,6 @@ show_menu
 
 user_input = ""
 
-
 until user_input == "EXIT"
 	user_input = gets.chomp.upcase
 	if user_input == '1'
@@ -198,21 +211,10 @@ until user_input == "EXIT"
 		if accounts == []
 			puts "No accounts exist for this user."
 		else
-			puts "Choose from the list of accounts:"
-			acc = []
 			accounts.each do |account|
-				puts account[0]
-				acc << account[0]
-			end
-			
-			account_id = gets.chomp.to_i
-			if acc.include?(account_id)
-				print_account_info(db,user_id,account_id)
-			else
-				puts "Invalid account number."
+				print_account_info(db,user_id,account[0])
 			end
 		end
-
 	elsif user_input != "EXIT"
 		puts "I didn't understand you."
 	end
