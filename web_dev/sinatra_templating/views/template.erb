@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+	<title>Template</title>
+</head>
+<body>
+	<p>Displaying SF Students:</p>
+
+	<ul>
+		<% @students.each do |student| %>
+		<li><%= student['name'] %></li>
+		<% end %>
+	</ul>
+
+	<p>Add additional SF students:</p>
+	<form method="POST">
+	    <input type="text" name="name" placeholder="Name">
+	    <input type="text" name="age" placeholder="Age">
+    <button type="submit">Save</button>
+  </form>
+
+</body>
+</html>
