@@ -88,3 +88,30 @@ get '/students/:id' do
   student = db.execute("SELECT * FROM students WHERE id=?", [params[:id]])[0]
   student.to_s
 end
+
+=begin 
+
+RESEARCH 
+
+1. Is Sinatra the only web app library in Ruby? 
+What are some others?
+-Ruby on Rails
+-Merb
+-Nitro
+-Camping
+
+2. Are SQLite and the sqlite3 gem your only options 
+for using a database with Sinatra? What are some others?
+-Active Record
+-Mongo
+
+3. What is meant by the term web stack?
+A web stack is a collection of software required for
+web development.
+-OS
+-programming language
+-database sofware
+-web sever
+
+
+=end
