@@ -1,9 +1,53 @@
 # require gems
 require 'sinatra'
+require 'sinatra/reloader' if development?
 require 'sqlite3'
 
 db = SQLite3::Database.new("students.db")
 db.results_as_hash = true
+
+# write a GET route
+# that displays an address
+get '/contact' do 
+  "<p>123 Main St.</p>\n <p>San Diego, CA</p>"
+end
+
+#write a GET route that takes a query parameter
+# if query param not present, say Good job!
+
+get '/great_job' do 
+  name = params[:name]
+  if name
+    "Good job, #{name}!"
+  else 
+    "Good job!"
+  end
+end
+
+#write a route that uses route parameters to add
+#two numbers and respond with result
+get '/add/:num1/:num2' do 
+  num1 = params[:num1].to_i
+  num2 = params[:num2].to_i
+  result = num1 + num2 
+  "#{num1} + #{num2} = #{result}"
+end
+
+# bonus: write a route that allows user to search db
+get '/students/search' do 
+  campus = params["campus"]
+  if campus
+    students = db.execute("SELECT * FROM students WHERE campus='#{campus}'")
+    response = ''
+    students.each do |student|
+      response += "<p>#{student['name']}</p>"
+    end
+    response
+  else 
+    "Please enter a campus to search."
+  end
+end
+
 
 # write a basic GET route
 # add a query parameter
